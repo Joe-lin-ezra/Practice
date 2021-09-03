@@ -1,0 +1,105 @@
+<section class="todoapp">
+
+  <header class="header">
+	  <h1>todos</h1>
+    <input
+      #box
+      class="new-todo"
+      placeholder="What needs to be done?"
+      autofocus
+      (keyup.enter)="addTodo(box)"
+      (blur)="addTodo(box)"
+    >
+  </header>
+
+  <section
+    class="main"
+  >
+    <input 
+      id="toggle-all"
+      type="checkbox"
+      class="toggle-all" 
+      #toggleall
+      [checked]="isAllCompleted()"
+      (click)=setAllTo(toggleall.checked)
+    >
+    <label for="toggle-all"></label>
+
+
+
+  <ul class="todo-list">
+    <li 
+      *ngFor="let todo of getList(); let i = index"
+      [class.completed]="todo.getStatus"
+      [class.editing]="todo.getEditable"
+      >
+      <div class="view">
+        <input 
+        class="toggle" 
+        type="checkbox"
+        (click)="todo.toggleCompletion()"
+        [checked]="todo.getStatus">
+        
+        <label (dblclick)="edit(todo)">{{ todo.getTitle }}</label>
+        
+        <button 
+          class="destroy"
+          (click)="remove(i)"
+        >
+        </button>
+      </div>
+      <input
+          class="edit"
+          #editedtodo
+          *ngIf="todo.getEditable"
+          [value]="todo.getTitle"
+          (blur)="update(todo, editedtodo.value)"
+          (keyup.enter)="update(todo, editedtodo.value)"
+          (keyup.escape)="cancelEdit(todo)"
+        >
+    </li>
+  </ul>
+
+  </section>
+  <footer
+    class="footer"
+  >
+    <span class="todo-count">
+      {{getRemainingList().length}} {{getRemainingList().length > 1? 'items':'item'}} left
+    </span>
+
+    <ul class="filters">
+      <li>
+        <a
+          href="javascript:;"
+          [class.selected]="checkStatus(todoStatus.all)"
+          (click)="setStatus(todoStatus.all)"
+        >
+          All
+        </a>
+        <a
+          href="javascript:;"
+          [class.selected]="checkStatus(todoStatus.active)"
+          (click)="setStatus(todoStatus.active)"
+        >
+          Active
+        </a>
+        <a
+          href="javascript:;"
+          [class.selected]="checkStatus(todoStatus.done)"
+          (click)="setStatus(todoStatus.done)"
+        >
+          Completed
+        </a>
+      </li>
+    </ul>
+
+    <button
+      class="clear-completed"
+      (click)="removeCompletedList()"
+    >
+      Clear Completed
+    </button>
+  </footer>
+
+</section>
