@@ -39,8 +39,16 @@ def go_cart_and_wait():
         else:
             break
     
+def process_goods():
+    pass
+
+def pay():
+    pass
+
 # following https://www.cnblogs.com/sljsz/p/14887102.html 
 if __name__ == "__main__":
     login()
     go_cart_and_wait()
-    
+    process_goods()
+    pay()
+    print("Please check your order history details.")
