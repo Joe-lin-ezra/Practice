@@ -1,18 +1,20 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 import time
-import datetime
+from datetime import datetime
 import random
 
-specific_time = input('Specific time(24hr) (hh:mm:ss): ')
-specific_time = datetime.strptime(specific_time, '%H:%M:%S')
+
+# change the input time to today's time
+specific_time = input('Specific time(24hr) (yyyy-mm-dd hh:mm:ss): ')
+specific_time = datetime.strptime(specific_time, '%Y-%m-%d %H:%M:%S')
 
 chrome = webdriver.Chrome()
 
 def login():
-    chrome.get('https://www.taobao.com/')
+    chrome.get('https://world.taobao.com/wow/z/oversea/SEO-SEM/ovs-pc-login')
     try:
-        chrome.find_element(By.LINK_TEXT, value='亲，请登录').click()
         # the original login type is account/password, but we need to login with QRcode
         # the switch button is in another frame
         iframe = chrome.find_element(By.CSS_SELECTOR, value='#J_Member')
@@ -23,7 +25,7 @@ def login():
         icon.click()
         # switch back to chrome driver
         chrome.switch_to.default_content()
-        time.sleep(30)
+        time.sleep(15)
         print('login completed!')
     except Exception as e:
         print(str(e))
@@ -31,15 +33,18 @@ def login():
 def go_cart_buy_and_pay():
     chrome.get(url='https://world.taobao.com/cart/cart.htm')
 
+    try:
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.XPATH, '//*[@id="J_Order_s_2200651406183_1"]/div[1]/div/div'))
+        )
     # click first store checkbutton
     chrome.find_element(By.XPATH, 
-                        value='//*[@id="tp-bought-root"]/div[4]/div/table/tbody[1]/tr/td[1]/label/span[1]/input').
-    click()
+                        value='//*[@id="J_Order_s_2200651406183_1"]/div[1]/div/div').click()
     
     while True:
-        now = datetime.strptime(datetime.now(), '%H:%M:%S')
+        now = datetime.now()
         inteval = now - specific_time
-        if inteval.hour == 0 and inteval.minute == 0 and inteval.second == 2:
+        if inteval.total_seconds() > 5:
             break
         else: 
             time.sleep(1)
@@ -48,6 +53,10 @@ def go_cart_buy_and_pay():
     chrome.find_element(By.XPATH, 
                         value='//*[@id="J_SmallSubmit"]').click()
     # submit this order
+    try:
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.XPATH, '//*[@id="submitOrderPC_1"]/div/a[2]'))
+        )
     chrome.find_element(By.XPATH, 
                         value='//*[@id="submitOrderPC_1"]/div/a[2]').click()
 
@@ -55,6 +64,11 @@ def go_cart_buy_and_pay():
 def check_order_details():
     chrome.get('https://i.taobao.com/my_taobao.htm')
     chrome.find_element(By.XPATH, value='//*[@id="bought"]').click()
+    try:
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.XPATH, '//*[@id="viewDetail"]'))
+        )
+    
     chrome.find_element(By.XPATH, value='//*[@id="viewDetail"]').click()
     print(chrome.find_element(By.XPATH, value='//*[@id="detail-panel"]/div/div[4]/div[2]/div/div/div/div[3]/div[1]/div[2]/span[3]/span[2]/span').text)
 
