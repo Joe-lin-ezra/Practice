@@ -1,0 +1,35 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node.js",
+    "express",
+    "jwt",
+    "login",
+    "registration",
+    "rest api",
+    "authentication",
+    "authorization",
+    "mysql"
+  ],
+  "author": "Hong Shao",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "",
+    "cookie-session": "",
+    "cors": "",
+    "express": "^4.17.2",
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "",
+    "sequelize": "^6.16.1"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1",
+    "supertest": "^6.2.2"
+  }
+}
