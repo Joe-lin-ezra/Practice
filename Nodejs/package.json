@@ -20,16 +20,13 @@
   "author": "Hong Shao",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.0.1",
-    "bcryptjs": "",
-    "cookie-session": "",
-    "cors": "",
-    "crypto": "^1.0.1",
-    "express": "^4.17.2",
+    "bcryptjs": "^2.4.3",
+    "cookie-session": "^1.4.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mysql2": "^2.3.3",
-    "path": "^0.12.7",
-    "sequelize": "^6.16.1"
+    "mysql2": "^2.1.0",
+    "sequelize": "^6.11.0"
   },
   "devDependencies": {
     "jest": "^27.5.1",
