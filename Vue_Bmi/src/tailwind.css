@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply px-8 py-2 text-white text-lg font-mono border border-blue-500 rounded-full bg-blue-200 focus:ring-4 focus:ring-blue-400 focus:ring-offset-4 focus:outline-none;
+    @apply transition duration-300;
+    @apply hover:translate-x-4;
+}
+  .btn-primary {
+    @apply bg-blue-500 hover:bg-blue-400 text-white;
+  }
+  .btn-secondary {
+    @apply bg-gray-500 hover:bg-gray-400 text-white;
+  }
+}
